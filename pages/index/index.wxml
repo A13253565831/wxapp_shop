@@ -1,0 +1,98 @@
+<import src = "../../common/sort_list.wxml"/>
+
+ <view class="one_mask"
+hidden="{{mask1Hidden}}" bindtap="mask1Cancel">
+  <template is="sort_list" data="{{selected,sortSelected}}"/>
+  <view class="overall-sort-list">
+    <block wx:for="{{sortList}}" wx:key="">
+    <view class="overall-sort" data-id="{{restaurant[0].dishid}}" data-index="{{index}}" 
+    bindtap="sortSelected">{{item.name}}</view>
+    </block> 
+  </view>
+</view>
+<view class="one_mask"
+hidden="{{mask2Hidden}}" bindtap="mask2Cancel">
+  <template is="sort_list" data="{{selected,sortSelected}}"/>
+  <scroll-view class="filterList" scroll-y="true" >
+    
+    <view class="filterList-discount-title">菜品分类(单选)</view>
+    <view class="filterList-discount-items">
+      <block wx:for="{{discountList}}" wx:key="">
+        <view class="filterList-discount-item {{discountSelected==index?'discount-selected':''}}"
+        catchtap="discountSelected" data-id="{{item.id}}" data-index="{{index}}">
+           <image class="filterList-discount-item-icon" src="{{item.g_img}}"></image> 
+        {{item.name}}</view>
+      </block>
+    </view>
+  </scroll-view>
+  <view class="filterList-footer">
+    <view class="filterList-footer-delect"
+    catchtap="clearSelectedNumb">清除筛选</view>
+    <view class="filterList-footer-finish" bindtap="finish">完成 
+    <view class="filterList-footer-finish-number" hidden="{{selectedNumb==0}}">{{selectedNumb}}
+    </view>
+    </view>
+  </view>
+</view> 
+
+<!-- index.wxml -->
+<view class="page">
+  <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="true" class="swiper">
+    <block wx:for="{{imgUrls}}">
+      <swiper-item class="swiper-item">
+        <image src="{{item.img}}" class="slide-image"/>
+      </swiper-item>
+    </block>
+  </swiper>
+  
+    
+    <view class="cont">
+     <template is="sort_list" data="{{selected,sortSelected}}"/>
+      <navigator class="pr" url="../product/detail?productId={{item.id}}" hover-class="changestyle"
+                 wx:for="{{restaurant}}">
+        <view class="restaurant_for" >
+			
+				<image class="pic" src="{{item.image}}"></image>
+				<view class="bottom">
+         <view class="center">
+          <view class="name_ellipsis">{{item.name}}</view>
+          <view class="sell">已售:{{item.is_order}}{{item.unit}}</view>
+         </view>
+				  <view class="flex_row">
+            <view class="price">￥{{item.price}}</view>
+            <view class="pricejia" catchtap="addShopCart" data-status="0" data-productId="{{item.id}}">+</view>
+           
+          </view>
+        </view>
+		</view>  
+      </navigator>
+    </view>
+    <view class="clear mt10" bindtap="getMore">更多美味</view>
+  </view>
+
+
+   
+  
+  <view class="can_bottom">
+   <view class="cart">
+
+    <view class="change">
+      <view class="bottom_num">{{count}}</view>
+    <!-- <image src="../../images/icons/btn-tabs_05.png" catchtap="goShopCart"></image>
+      -->
+      <view class="bottom_gwc" catchtap="goShopCart"></view> 
+    </view>
+    <!--data-cartid="{{item.id}}"  -->
+    <view class="buyNow"  catchtap="buynow" data-type="buynow" wx:if="{{count==0? false:true}}" data-status="1" >查看已选菜品</view>
+    <view class="buyNow"  wx:elif="{{count!=0?false:true}}">赶快点餐!!</view>
+   </view>
+  </view>
+
+
+
+
+
+
+
+
+

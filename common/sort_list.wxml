@@ -1,0 +1,20 @@
+<template name="sort_list">
+  <view class="sort-list">
+      <view class="sort"
+      bindtap="onOverallTag">{{sortSelected}}
+      </view>
+      <view data-index="0"
+      bindtap="onTapTag" 
+      class="sort {{selected == 0?'sort-active':''}}">
+        销量最高
+      </view>
+      <!-- <view data-index="1"
+      bindtap="onTapTag" 
+      class="sort {{selected == 1?'sort-active':''}}">
+        距离最近
+      </view> -->
+       <view class="sort"
+      bindtap="onFilter">菜品分类
+      </view> 
+  </view>
+</template>
